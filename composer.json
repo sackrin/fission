@@ -1,0 +1,20 @@
+{
+    "name": "sackrin/fission",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Hilary Osborne",
+            "email": "h.t.osborne@gmail.com"
+        }
+    ],
+  "autoload": {
+      "psr-4": {
+          "Fission\\": "src/"
+      }
+  },
+    "require": {
+        "php": "^7.0",
+        "doctrine/collections": "^1.5",
+        "wixel/gump": "^1.5"
+    }
+}
