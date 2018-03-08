@@ -3,16 +3,19 @@
 namespace Fission\Hydrate;
 
 use Fission\Schema\Atom;
-use Fission\Support\Collect;
-use Fission\Support\Type;
+use Fission\Schema\Policy\Traits\HasRoles;
+use Fission\Schema\Policy\Traits\HasScope;
+use Fission\Support\Util\Press;
 
 class Reactor {
 
-    protected $atom;
+    use HasScope, HasRoles;
 
-    protected $isotopes;
+    public $atom;
 
-    protected $values;
+    public $isotopes;
+
+    public $values;
 
     public static function using(Atom $atom) {
         // Return a new reactor instance
@@ -30,24 +33,14 @@ class Reactor {
 
     public function with($values) {
         // Override any existing values
-        $this->values = (array)$values;
-        // Build the isotope tree
-        $this->isotopes->hydrate($this->values);
+        $this->values = $values instanceof Press ? $values->all() : (array) $values;
+        // Initialise with an isotope collection
+        $this->isotopes = (new IsotopeCollection($this->atom->nuclei, []))
+            ->roles($this->roles)
+            ->scope($this->scope)
+            ->hydrate($this->values);
         // Return for chaining
-        return $this;
-    }
-
-    public function merge($values) {
-        // Override any existing values
-        $this->values = array_replace_recursive($this->values, (array)$values);
-        // Build the isotope tree
-        $this->isotopes->hydrate($this->values);
-        // Return for chaining
-        return $this;
-    }
-
-    public function isotopes() {
-        // Return the built isotopes
         return $this->isotopes;
     }
+
 }

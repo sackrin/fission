@@ -1,6 +1,6 @@
 <?php
 
-namespace Fission\Schema\Validate;
+namespace Fission\Walker;
 
 use Fission\Support\Type;
 
@@ -25,19 +25,24 @@ class Validator {
     }
 
     public function walker($isotopes, $crumb) {
-
+        // Loop through each of the isotopes
         foreach ($isotopes->toArray() as $isotope) {
+            // Retrieve the isotope nucleus
             $nucleus = $isotope->nucleus;
+            // Retrieve the nucleus machine code
             $machine = $nucleus->machine;
+            // Create a new breadcrumb
             $breadcrumb = $crumb ? $crumb.'.'.$machine : $machine;
-            $validation = $isotope->validate()->validation;
-
-            if (is_array($validation)) {
-                $this->errors[$crumb] = $validation;
+            // Validate the isotope and retrieve any errors
+            $errors = $isotope->validate()->validation;
+            // If any errors were found
+            if (is_array($errors)) {
+                // Add the errors at the breadcrumb location
+                $this->errors[$breadcrumb] = $errors;
             }
             // If this nuclues is a container
-            // This means it will have direct property isotopes
             if ($nucleus->type === Type::container()) {
+                //
                 $this->walker($isotope->isotopes, $breadcrumb);
             } // Which means this will have multiple groups of isotopes
             elseif ($nucleus->type === Type::collection() && is_array($isotope->value)) {
@@ -48,6 +53,10 @@ class Validator {
             }
         }
 
+    }
+
+    public function hasErrors() {
+        return is_array($this->errors) && count($this->errors) > 0;
     }
 
     public function errors() {
