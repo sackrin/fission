@@ -4,12 +4,12 @@ namespace Fission\Support;
 
 class Type {
 
-    const STRING = 'String';
-    const INT = 'Int';
-    const BOOLEAN = 'Boolean';
-    const FLOAT = 'Float';
-    const CONTAINER = 'Container';
-    const COLLECTION = 'Collection';
+    const STRING = 'string';
+    const INT = 'int';
+    const BOOLEAN = 'boolean';
+    const FLOAT = 'float';
+    const CONTAINER = 'container';
+    const COLLECTION = 'collection';
 
     public static function string() {
         return self::STRING;
