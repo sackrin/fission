@@ -14,7 +14,6 @@ class Atom {
     public $nuclei;
 
     public static function create($machine) {
-
         return new static($machine);
     }
 

@@ -3,6 +3,7 @@
 namespace Fission;
 
 use Fission\Schema\Nucleus;
+use Fission\Schema\NucleusCollection;
 use Fission\Schema\Policy\Allow;
 use Fission\Schema\Policy\Deny;
 use Fission\Schema\Sanitize\Sanitize;
@@ -13,6 +14,7 @@ class Fission {
 
     public static $config = [
         'nucleus' => Nucleus::class,
+        'nuclei' => NucleusCollection::class,
         'collect' => Collect::class,
         'policy' => [
             'deny' => Deny::class,
@@ -28,6 +30,11 @@ class Fission {
 
     public static function configNucleus($machine) {
         $class = static::$config['nucleus'];
+        return new $class($machine);
+    }
+
+    public static function configNuclei($machine) {
+        $class = static::$config['nuclei'];
         return new $class($machine);
     }
 

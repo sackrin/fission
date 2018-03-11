@@ -42,7 +42,7 @@ class ArrayImport {
 
     public function walker($arr) {
 
-        $collect = Fission::configCollect([]);
+        $collect = Fission::configNuclei([]);
 
         foreach ($arr as $import) {
 
