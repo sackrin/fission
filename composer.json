@@ -1,20 +1,31 @@
 {
     "name": "sackrin/fission",
+    "description": "PHP Object schema builder with validation and access control",
     "type": "library",
     "authors": [
         {
             "name": "Hilary Osborne",
-            "email": "h.t.osborne@gmail.com"
+            "email": "h.t.osborne@gmail.com",
+            "homepage": "https://www.hilaryosborne.com",
+            "role": "lead"
         }
     ],
-  "autoload": {
-      "psr-4": {
-          "Fission\\": "src/"
-      }
-  },
+    "autoload": {
+        "psr-4": {
+            "Fission\\": "src/Fission"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
     "require": {
         "php": "^7.0",
         "doctrine/collections": "^1.5",
         "wixel/gump": "^1.5"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^7"
     }
 }

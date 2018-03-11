@@ -2,8 +2,8 @@
 
 namespace Fission\Schema;
 
-use Doctrine\Common\Collections\ArrayCollection;
+use Fission\Support\Collect;
 
-class NucleusCollection extends ArrayCollection {
+class NucleusCollection extends Collect {
 
 }

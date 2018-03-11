@@ -2,9 +2,9 @@
 
 namespace Fission\Schema\Policy;
 
-use Doctrine\Common\Collections\ArrayCollection;
+use Fission\Support\Collect;
 
-class PolicyCollection extends ArrayCollection {
+class PolicyCollection extends Collect {
 
     public function grant($scope, $roles) {
         // Retrieve the list of policies
