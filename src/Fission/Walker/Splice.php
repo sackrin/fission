@@ -179,9 +179,9 @@ class Splice {
         // If we intend on replacing
         if ($replace) {
             // Overwrite the current instance property
-            return new Collect($value);
+            return $existing->replace($value);
         } // Otherwise merge with the existing values
-        else { return new Collect(array_merge($existing->toArray(), $value)); }
+        else { return $existing->merge($value); }
     }
 
     /**

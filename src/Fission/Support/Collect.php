@@ -38,4 +38,22 @@ class Collect extends ArrayCollection {
         return count(array_diff($this->toArray(), $haystack->toArray())) < count($this->toArray());
     }
 
+    public function replace($elements) {
+        // Retrieve the items to merge or replace
+        $elements = $elements instanceof Collect ? $elements->toArray() : (array)$elements;
+        // Return a new instance of the collect with the new elements
+        return $this->createFrom($elements);
+    }
+
+    public function merge($elements) {
+        // Retrieve the items to merge or replace
+        $elements = $elements instanceof Collect ? $elements->toArray() : (array)$elements;
+        // Loop through each of the passed new elements
+        foreach ($elements as $element) {
+            // Add the element to the collection
+            $this->add($element);
+        }
+        // Return the collection
+        return $this;
+    }
 }
