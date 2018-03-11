@@ -2,6 +2,7 @@
     "name": "sackrin/fission",
     "description": "PHP Object schema builder with validation and access control",
     "type": "library",
+    "license": "MIT",
     "authors": [
         {
             "name": "Hilary Osborne",
