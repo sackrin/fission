@@ -6,6 +6,7 @@ use Fission\Schema\Policy\PolicyCollection;
 use Fission\Schema\Sanitize\SanitizeCollection;
 use Fission\Schema\Validate\ValidateCollection;
 use Fission\Support\Collect;
+use Fission\Support\Type;
 
 class Nucleus {
 
@@ -32,6 +33,7 @@ class Nucleus {
 
     public function __construct($machine) {
         $this->machine = $machine;
+        $this->type = Type::string();
         $this->nuclei = new NucleusCollection([]);
         $this->policies = new PolicyCollection([]);
         $this->sanitize = new SanitizeCollection([]);
