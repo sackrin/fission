@@ -2,6 +2,7 @@
 
 namespace Fission\Schema;
 
+use Fission\Schema\Format\FormatCollection;
 use Fission\Schema\Policy\PolicyCollection;
 use Fission\Schema\Sanitize\SanitizeCollection;
 use Fission\Schema\Validate\ValidateCollection;
@@ -20,27 +21,31 @@ class Nucleus {
 
     public $sanitize;
 
+    public $format;
+
     public $validate;
 
     public $parent;
 
     public $nuclei;
 
-    public static function create($machine) {
+    public static function create(string $machine) {
         // Create a new nucleus instance
         return new static($machine);
     }
 
-    public function __construct($machine) {
+    public function __construct(string $machine) {
         $this->machine = $machine;
         $this->type = Type::string();
+        // Initialise the various collections
         $this->nuclei = new NucleusCollection([]);
         $this->policies = new PolicyCollection([]);
         $this->sanitize = new SanitizeCollection([]);
         $this->validate = new ValidateCollection([]);
+        $this->format = new FormatCollection([]);
     }
 
-    public function label($label) {
+    public function label(string $label) {
         // Populate the provided label
         $this->label = $label;
         // Return for chaining
@@ -57,6 +62,13 @@ class Nucleus {
     public function policies($policies) {
         // Populate the provided label
         $this->policies = new PolicyCollection($policies);
+        // Return for chaining
+        return $this;
+    }
+
+    public function format($format) {
+        // Populate the provided label
+        $this->format = new FormatCollection($format);
         // Return for chaining
         return $this;
     }

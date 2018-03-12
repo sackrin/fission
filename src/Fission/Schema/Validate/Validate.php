@@ -2,6 +2,7 @@
 
 namespace Fission\Schema\Validate;
 
+use Fission\Hydrate\Isotope;
 use GUMP;
 
 class Validate {
@@ -16,7 +17,7 @@ class Validate {
         $this->rules = $rules;
     }
 
-    public function apply($value) {
+    public function apply(Isotope $isotope, $value) {
         // Create a new gump instance
         $gump = new GUMP();
         // Generate a temporary file field name

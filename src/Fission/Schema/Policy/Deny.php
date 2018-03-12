@@ -2,9 +2,11 @@
 
 namespace Fission\Schema\Policy;
 
+use Fission\Hydrate\Isotope;
+
 class Deny extends Policy {
 
-    public function grant($scope, $roles) {
+    public function grant(Isotope $isotope, $scope, $roles) {
         // If not in scope then grant
         if (!$this->scope->containsSome($scope)) { return true; }
         // If not within the roles then grant

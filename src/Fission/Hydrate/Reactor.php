@@ -26,7 +26,7 @@ class Reactor {
         // Store the atom
         $this->atom = $atom;
         // Initialise with an isotope collection
-        $this->isotopes = new IsotopeCollection($atom->nuclei, []);
+        $this->isotopes = new IsotopeCollection($this, $atom->nuclei);
         // Initialise the values with an array
         $this->values = [];
     }
@@ -35,7 +35,7 @@ class Reactor {
         // Override any existing values
         $this->values = $values instanceof Press ? $values->all() : (array) $values;
         // Initialise with an isotope collection
-        $this->isotopes = (new IsotopeCollection($this->atom->nuclei, []))
+        $this->isotopes = (new IsotopeCollection($this, $this->atom->nuclei))
             ->roles($this->roles)
             ->scope($this->scope)
             ->hydrate($this->values);

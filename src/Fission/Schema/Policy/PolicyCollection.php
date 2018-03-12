@@ -2,11 +2,12 @@
 
 namespace Fission\Schema\Policy;
 
+use Fission\Hydrate\Isotope;
 use Fission\Support\Collect;
 
 class PolicyCollection extends Collect {
 
-    public function grant($scope, $roles) {
+    public function grant(Isotope $isotope, $scope, $roles) {
         // Retrieve the list of policies
         $policies = $this->toArray();
         // If there are no policies then automatically grant
@@ -16,7 +17,7 @@ class PolicyCollection extends Collect {
         // Loop through each of the policies
         foreach ($policies as $policy) {
             // Allow the policy to determine if granted
-            $policyCheck = $policy->grant($scope, $roles);
+            $policyCheck = $policy->grant($isotope, $scope, $roles);
             // If the policy check did not grant then continue
             if (!$policyCheck) { continue; }
             // Flag the policy as passed

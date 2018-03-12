@@ -2,6 +2,7 @@
 
 namespace Fission\Schema\Policy;
 
+use Fission\Hydrate\Isotope;
 use Fission\Schema\Policy\Traits\HasRoles;
 use Fission\Schema\Policy\Traits\HasScope;
 
@@ -18,6 +19,6 @@ abstract class Policy {
         return $instance;
     }
 
-    public abstract function grant($scope, $roles);
+    public abstract function grant(Isotope $isotope, $scope, $roles);
 
 }
