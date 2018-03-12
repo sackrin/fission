@@ -52,7 +52,7 @@ class Values {
             // Retrieve the nucleus machine code
             $machine = $nucleus->machine;
             // Retrieve the formatted value
-            $value = $isotope->formatted();
+            $value = $isotope->getValue();
             // If this nuclues is a container
             if ($nucleus->type === Type::container()) {
                 // Directly populate the values into this value slot
@@ -71,7 +71,7 @@ class Values {
                 // Push the group into the isotope value array
                 $values[$machine][] = $group;
             } // Otherwise directly populate the value
-            else { $values[$machine] = $isotope->formatted(); }
+            else { $values[$machine] = $isotope->getValue(); }
         }
         // Return the built values
         return $values;

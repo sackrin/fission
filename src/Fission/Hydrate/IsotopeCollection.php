@@ -45,8 +45,8 @@ class IsotopeCollection extends ArrayCollection {
             $value = isset($values[$machine]) ? $values[$machine] : null;
             // Create a new isotope instance
             $isotope = Isotope::create($this->reactor, $nucleus)
-                ->siblings($this->nuclei)
-                ->value($value)
+                ->setSiblings($this->nuclei)
+                ->setValue($value)
                 ->sanitize();
             // Check the policies to see if isotope hydration is allowed
             $grant = $nucleus->policies
