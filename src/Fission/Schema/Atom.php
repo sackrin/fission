@@ -80,10 +80,11 @@ class Atom {
      * Shortcut Nuclei Setter
      * @param NucleusCollection $nuclei
      * @return $this
+     * @throws \Exception
      */
-    public function nuclei(NucleusCollection $nuclei) {
+    public function nuclei($nuclei) {
         // Store passed nucleus collection
-        $this->nuclei = $nuclei;
+        $this->nuclei = new NucleusCollection($nuclei);
         // Return for chaining
         return $this;
     }
