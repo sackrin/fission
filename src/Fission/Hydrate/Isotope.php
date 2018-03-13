@@ -8,7 +8,7 @@ use Fission\Schema\NucleusCollection;
 class Isotope {
 
     /**
-     * @var
+     * @var mixed
      */
     public $value;
 
@@ -52,13 +52,13 @@ class Isotope {
      */
     public function __construct(Reactor $reactor, Nucleus $nucelus) {
         // Store the reactor instance
-        $this->reactor = $reactor;
+        $this->setReactor($reactor);
         // Store the nucleus instance
-        $this->nucleus = $nucelus;
+        $this->setNucleus($nucelus);
         // Initiate the siblings collection
-        $this->siblings = new NucleusCollection([]);
+        $this->setSiblings(new NucleusCollection([]));
         // Initiate the isotope collection
-        $this->isotopes = new IsotopeCollection($this->reactor, $nucelus->nuclei);
+        $this->setIsotopes(new IsotopeCollection($this->getReactor(), $nucelus->getNuclei()));
     }
 
     /**
@@ -71,12 +71,36 @@ class Isotope {
     }
 
     /**
+     * Get Reactor
+     * @param Reactor $reactor
+     * @return Isotope
+     */
+    public function setReactor(Reactor $reactor) {
+        // Set the reactor instance
+        $this->reactor = $reactor;
+        // Return for chaining
+        return $this;
+    }
+
+    /**
      * Get Nucleus Instance
      * @return Nucleus
      */
     public function getNucleus() {
         // Return the stored nucleus instance
         return $this->nucleus;
+    }
+
+    /**
+     * Set Nucleus Instance
+     * @param Nucleus $nucleus
+     * @return $this
+     */
+    public function setNucleus(Nucleus $nucleus) {
+        // Set the nucleus instance
+        $this->nucleus = $nucleus;
+        // Return for chaining
+        return $this;
     }
 
     /**
@@ -107,7 +131,7 @@ class Isotope {
      */
     public function setValue($value) {
         // Retrieve the nucleus formatter
-        $format = $this->nucleus->format;
+        $format = $this->nucleus->getFormatters();
         // Pass the value through any format setters
         $this->value = $format->setter($this, $value);
         // Return for chaining
@@ -120,7 +144,7 @@ class Isotope {
      */
     public function getValue() {
         // Retrieve the nucleus formatter
-        $format = $this->nucleus->format;
+        $format = $this->nucleus->getFormatters();
         // Return the formatted value
         return $format->getter($this);
     }
@@ -153,7 +177,7 @@ class Isotope {
      */
     public function sanitize() {
         // Retrieve the nucleus sanitizer collection
-        $sanitize = $this->nucleus->sanitize;
+        $sanitize = $this->getNucleus()->getSanitizers();
         // Apply the sanitization to the value and repopulate the value
         // We do this because sanitized values is the ideal state of a value
         $this->value = $sanitize->sanitize($this, $this->value);
@@ -168,7 +192,7 @@ class Isotope {
      */
     public function validate() {
         // Retrieve the nucleus validate collection
-        $validate = $this->nucleus->validate;
+        $validate = $this->getNucleus()->getValidators();
         // Return the result of the validation
         return $validate->validate($this, $this->value);
     }

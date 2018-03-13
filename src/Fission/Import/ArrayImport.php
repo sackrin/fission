@@ -107,7 +107,7 @@ class ArrayImport {
             $sanitizers->add($sanitizer);
         }
 
-        $nucleus->sanitize($sanitizers);
+        $nucleus->sanitizers($sanitizers);
     }
 
     public static function addValidate(Nucleus $nucleus, array $items) {
@@ -121,7 +121,7 @@ class ArrayImport {
             $validators->add($validator);
         }
 
-        $nucleus->validate($validators);
+        $nucleus->validators($validators);
     }
 
     public static function addNuclei(Nucleus $nucleus, Collect $nuclei) {

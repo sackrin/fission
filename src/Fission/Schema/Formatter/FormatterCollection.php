@@ -1,12 +1,12 @@
 <?php
 
-namespace Fission\Schema\Format;
+namespace Fission\Schema\Formatter;
 
 use Fission\Hydrate\Isotope;
 use Fission\Hydrate\Reactor;
 use Fission\Support\Collect;
 
-class FormatCollection extends Collect {
+class FormatterCollection extends Collect {
 
     /**
      * Isotope Value Getter
