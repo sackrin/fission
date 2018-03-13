@@ -36,18 +36,18 @@ final class NucleusTest extends TestCase {
 
     public function testAddSanitizer() {
 
-        $this->assertObjectHasAttribute( 'sanitize', $this->nucleus);
+        $this->assertObjectHasAttribute( 'sanitizers', $this->nucleus);
 
-        $this->nucleus->sanitize([
+        $this->nucleus->sanitizers([
             GUMPSanitizer::using("trim|sanitize_string")
         ]);
     }
 
     public function testAddValidator() {
 
-        $this->assertObjectHasAttribute( 'validate', $this->nucleus);
+        $this->assertObjectHasAttribute( 'validators', $this->nucleus);
 
-        $this->nucleus->validate([
+        $this->nucleus->validators([
             GUMPValidator::against("required|min_len,5")
         ]);
     }
