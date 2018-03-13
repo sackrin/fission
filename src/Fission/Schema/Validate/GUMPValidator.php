@@ -5,7 +5,7 @@ namespace Fission\Schema\Validate;
 use Fission\Hydrate\Isotope;
 use GUMP;
 
-class GUMPValidate extends AbstractValidate {
+class GUMPValidator extends AbstractValidator {
 
     /**
      * @var string

@@ -4,7 +4,7 @@ namespace Fission\Schema\Validate;
 
 use Fission\Hydrate\Isotope;
 
-abstract class AbstractValidate implements ValidateInterface {
+abstract class AbstractValidator implements ValidatorInterface {
 
     /**
      * @var mixed

@@ -6,7 +6,7 @@ use Fission\Fission;
 use Fission\Schema\Atom;
 use Fission\Schema\Nucleus;
 use Fission\Schema\Policy\PolicyCollection;
-use Fission\Schema\Sanitize\SanitizeCollection;
+use Fission\Schema\Sanitize\SanitizerCollection;
 use Fission\Support\Collect;
 
 class ArrayImport {
@@ -98,7 +98,7 @@ class ArrayImport {
 
     public static function addSanitize(Nucleus $nucleus, array $items) {
 
-        $sanitizers = new SanitizeCollection([]);
+        $sanitizers = new SanitizerCollection([]);
 
         foreach ($items as $item) {
 
@@ -112,7 +112,7 @@ class ArrayImport {
 
     public static function addValidate(Nucleus $nucleus, array $items) {
 
-        $validators = new SanitizeCollection([]);
+        $validators = new SanitizerCollection([]);
 
         foreach ($items as $item) {
 

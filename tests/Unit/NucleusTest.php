@@ -5,8 +5,8 @@ namespace Tests\Unit;
 use Fission\Schema\Nucleus;
 use Fission\Schema\Policy\Allow;
 use Fission\Schema\Policy\Deny;
-use Fission\Schema\Sanitize\Sanitize;
-use Fission\Schema\Validate\GUMPValidate;
+use Fission\Schema\Sanitize\GUMPSanitizer;
+use Fission\Schema\Validate\GUMPValidator;
 use Fission\Support\Type;
 use PHPUnit\Framework\TestCase;
 
@@ -39,7 +39,7 @@ final class NucleusTest extends TestCase {
         $this->assertObjectHasAttribute( 'sanitize', $this->nucleus);
 
         $this->nucleus->sanitize([
-            Sanitize::using("trim|sanitize_string")
+            GUMPSanitizer::using("trim|sanitize_string")
         ]);
     }
 
@@ -48,7 +48,7 @@ final class NucleusTest extends TestCase {
         $this->assertObjectHasAttribute( 'validate', $this->nucleus);
 
         $this->nucleus->validate([
-            GUMPValidate::against("required|min_len,5")
+            GUMPValidator::against("required|min_len,5")
         ]);
     }
 

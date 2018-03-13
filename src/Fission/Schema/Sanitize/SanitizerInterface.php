@@ -1,25 +1,25 @@
 <?php
 
-namespace Fission\Schema\Validate;
+namespace Fission\Schema\Sanitize;
 
 use Fission\Hydrate\Isotope;
 
-interface ValidateInterface {
+interface SanitizerInterface {
 
     /**
      * Factory Method
      * @param $rules
      * @return static
      */
-    public static function against($rules);
+    public static function using($rules);
 
     /**
-     * Validate Value
+     * Sanitize Value
      * @param Isotope $isotope
      * @param $value
      * @return array|bool
      * @throws \Exception
      */
-    public function validate(Isotope $isotope, $value);
+    public function sanitize(Isotope $isotope, $value);
 
 }

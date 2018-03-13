@@ -4,8 +4,8 @@ namespace Fission\Schema;
 
 use Fission\Schema\Format\FormatCollection;
 use Fission\Schema\Policy\PolicyCollection;
-use Fission\Schema\Sanitize\SanitizeCollection;
-use Fission\Schema\Validate\ValidateCollection;
+use Fission\Schema\Sanitize\SanitizerCollection;
+use Fission\Schema\Validate\ValidatorCollection;
 use Fission\Support\Collect;
 use Fission\Support\Type;
 
@@ -40,8 +40,8 @@ class Nucleus {
         // Initialise the various collections
         $this->nuclei = new NucleusCollection([]);
         $this->policies = new PolicyCollection([]);
-        $this->sanitize = new SanitizeCollection([]);
-        $this->validate = new ValidateCollection([]);
+        $this->sanitize = new SanitizerCollection([]);
+        $this->validate = new ValidatorCollection([]);
         $this->format = new FormatCollection([]);
     }
 
@@ -79,14 +79,14 @@ class Nucleus {
 
     public function sanitize($sanitize) {
         // Populate the provided label
-        $this->sanitize = new SanitizeCollection($sanitize);
+        $this->sanitize = new SanitizerCollection($sanitize);
         // Return for chaining
         return $this;
     }
 
     public function validate($validate) {
         // Populate the provided label
-        $this->validate = new ValidateCollection($validate);
+        $this->validate = new ValidatorCollection($validate);
         // Return for chaining
         return $this;
     }

@@ -5,7 +5,7 @@ namespace Fission\Schema\Validate;
 use Fission\Hydrate\Isotope;
 use Fission\Support\Collect;
 
-class ValidateCollection extends Collect {
+class ValidatorCollection extends Collect {
 
     /**
      * Validate Against Value
@@ -22,7 +22,7 @@ class ValidateCollection extends Collect {
         // Loop through each of the provided
         foreach ($elements as $validator) {
             // Do a interface check
-            if (!$validator instanceof ValidateInterface) {
+            if (!$validator instanceof ValidatorInterface) {
                 // Throw an exception
                 throw new \Exception('Validator '.get_class($validator).' does not implement ValidateInterface');
             }
