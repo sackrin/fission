@@ -4,7 +4,7 @@ namespace Fission\Schema\Policy;
 
 use Fission\Hydrate\Isotope;
 
-class Allow extends Policy {
+class Allow extends AbstractPolicy {
 
     /**
      * Grant Access Using Scope & Roles

@@ -1,6 +1,6 @@
 <?php
 
-namespace Fission\Schema\Validate;
+namespace Fission\Schema\Validator;
 
 use Fission\Hydrate\Isotope;
 use GUMP;

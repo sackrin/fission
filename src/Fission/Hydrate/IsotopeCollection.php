@@ -12,12 +12,26 @@ class IsotopeCollection extends ArrayCollection {
 
     use RolesTrait, ScopeTrait;
 
+    /**
+     * @var Reactor
+     */
     public $reactor;
 
+    /**
+     * @var NucleusCollection
+     */
     public $nuclei;
 
+    /**
+     * @var IsotopeCollection
+     */
     public $isotopes;
 
+    /**
+     * IsotopeCollection constructor.
+     * @param Reactor $reactor
+     * @param NucleusCollection $nuclei
+     */
     public function __construct(Reactor $reactor, NucleusCollection $nuclei) {
         // Populate the reactor instance
         $this->reactor = $reactor;
@@ -29,8 +43,10 @@ class IsotopeCollection extends ArrayCollection {
     }
 
     /**
+     * Spawn New Collection
      * @param NucleusCollection $nuclei
-     * @return mixed
+     * @return $this
+     * @throws \Exception
      */
     public function spawn(NucleusCollection $nuclei) {
         // Return a newly minted isotope collection instance
@@ -39,6 +55,12 @@ class IsotopeCollection extends ArrayCollection {
             ->setRoles($this->roles);
     }
 
+    /**
+     * Hydrate Walker
+     * @param $values
+     * @return $this
+     * @throws \Exception
+     */
     public function hydrate($values) {
         // Loop through each of the nuclei
         foreach ($this->nuclei as $nucleus) {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Fission\Schema\Sanitize;
+namespace Fission\Schema\Sanitizer;
 
 use Fission\Hydrate\Isotope;
 use GUMP;

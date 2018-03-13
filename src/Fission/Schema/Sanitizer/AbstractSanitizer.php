@@ -1,31 +1,26 @@
 <?php
 
-namespace Fission\Schema\Validate;
+namespace Fission\Schema\Sanitizer;
 
 use Fission\Hydrate\Isotope;
 
-abstract class AbstractValidator implements ValidatorInterface {
-
-    /**
-     * @var mixed
-     */
-    public $rules;
+abstract class AbstractSanitizer implements SanitizerInterface {
 
     /**
      * Factory Method
      * @param $rules
      * @return static
      */
-    public abstract static function against($rules);
+    public abstract static function using($rules);
 
     /**
-     * Validate Value
+     * Sanitize Value
      * @param Isotope $isotope
      * @param $value
      * @return array|bool
      * @throws \Exception
      */
-    public abstract function validate(Isotope $isotope, $value);
+    public abstract function sanitize(Isotope $isotope, $value);
 
     /**
      * Rules Getter
@@ -48,5 +43,4 @@ abstract class AbstractValidator implements ValidatorInterface {
         // Return for chaining
         return $this;
     }
-
 }

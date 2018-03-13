@@ -9,16 +9,18 @@ use Fission\Support\Collect;
 class FormatCollection extends Collect {
 
     /**
+     * Isotope Value Getter
+     * Use this to get a value from an isotope
      * @param Isotope $isotope
      * @return mixed
      */
-    public function getter(Isotope $isotope) {
-        // Retrieve the list of format
-        $format = $this->toArray();
+    public function getter(Isotope $isotope, $formatted=true) {
+        // Retrieve the list of formatters
+        $formatters = $this->toArray();
         // If there are no format then just return the value
-        if (count($format) == 0) { return $isotope->value; }
+        if (!$formatted || count($formatters) == 0) { return $isotope->value; }
         // Loop through each of the format
-        foreach ($format as $formatter) {
+        foreach ($formatters as $formatter) {
             // If the formatter class does not have a get method
             if (!method_exists($formatter, 'get')) { continue; }
             // Pass the value through the formatter method
@@ -29,17 +31,18 @@ class FormatCollection extends Collect {
     }
 
     /**
+     * Isotope Value Setter
      * @param Isotope $isotope
      * @param $value
      * @return mixed
      */
-    public function setter(Isotope $isotope, $value) {
-        // Retrieve the list of format
-        $format = $this->toArray();
+    public function setter(Isotope $isotope, $value, $formatted=true) {
+        // Retrieve the list of formatters
+        $formatters = $this->toArray();
         // If there are no format then just return the value
-        if (count($format) == 0) { return $value; }
+        if (!$formatted || count($formatters) == 0) { return $value; }
         // Loop through each of the format
-        foreach ($format as $formatter) {
+        foreach ($formatters as $formatter) {
             // If the formatter class does not have a set method
             if (!method_exists($formatter, 'set')) { continue; }
             // Pass the value through the formatter method

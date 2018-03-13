@@ -37,6 +37,7 @@ class Isotope {
      * @param Reactor $reactor
      * @param Nucleus $nucelus
      * @return static
+     * @throws \Exception
      */
     public static function create(Reactor $reactor, Nucleus $nucelus) {
         // Return a new isotope instance
@@ -47,6 +48,7 @@ class Isotope {
      * Isotope constructor.
      * @param Reactor $reactor
      * @param Nucleus $nucelus
+     * @throws \Exception
      */
     public function __construct(Reactor $reactor, Nucleus $nucelus) {
         // Store the reactor instance
@@ -147,6 +149,7 @@ class Isotope {
     /**
      * Sanitize Isotope Value
      * @return $this
+     * @throws \Exception
      */
     public function sanitize() {
         // Retrieve the nucleus sanitizer collection
@@ -160,7 +163,8 @@ class Isotope {
 
     /**
      * Validate Isotope Value
-     * @return $this
+     * @return array|bool
+     * @throws \Exception
      */
     public function validate() {
         // Retrieve the nucleus validate collection

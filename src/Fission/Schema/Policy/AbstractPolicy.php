@@ -6,7 +6,7 @@ use Fission\Hydrate\Isotope;
 use Fission\Schema\Policy\RolesTrait;
 use Fission\Schema\Policy\ScopeTrait;
 
-abstract class Policy {
+abstract class AbstractPolicy {
 
     use RolesTrait, ScopeTrait;
 

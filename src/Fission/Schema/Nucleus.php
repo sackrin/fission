@@ -4,9 +4,8 @@ namespace Fission\Schema;
 
 use Fission\Schema\Format\FormatCollection;
 use Fission\Schema\Policy\PolicyCollection;
-use Fission\Schema\Sanitize\SanitizerCollection;
-use Fission\Schema\Validate\ValidatorCollection;
-use Fission\Support\Collect;
+use Fission\Schema\Sanitizer\SanitizerCollection;
+use Fission\Schema\Validator\ValidatorCollection;
 use Fission\Support\Type;
 
 class Nucleus {

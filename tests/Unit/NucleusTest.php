@@ -5,8 +5,8 @@ namespace Tests\Unit;
 use Fission\Schema\Nucleus;
 use Fission\Schema\Policy\Allow;
 use Fission\Schema\Policy\Deny;
-use Fission\Schema\Sanitize\GUMPSanitizer;
-use Fission\Schema\Validate\GUMPValidator;
+use Fission\Schema\Sanitizer\GUMPSanitizer;
+use Fission\Schema\Validator\GUMPValidator;
 use Fission\Support\Type;
 use PHPUnit\Framework\TestCase;
 
