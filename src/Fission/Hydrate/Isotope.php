@@ -10,11 +10,6 @@ class Isotope {
     /**
      * @var
      */
-    public $validate;
-
-    /**
-     * @var
-     */
     public $value;
 
     /**
@@ -62,6 +57,24 @@ class Isotope {
         $this->siblings = new NucleusCollection([]);
         // Initiate the isotope collection
         $this->isotopes = new IsotopeCollection($this->reactor, $nucelus->nuclei);
+    }
+
+    /**
+     * Get Reactor
+     * @return Reactor
+     */
+    public function getReactor() {
+        // Return the stored reactor instance
+        return $this->reactor;
+    }
+
+    /**
+     * Get Nucleus Instance
+     * @return Nucleus
+     */
+    public function getNucleus() {
+        // Return the stored nucleus instance
+        return $this->nucleus;
     }
 
     /**
@@ -152,10 +165,8 @@ class Isotope {
     public function validate() {
         // Retrieve the nucleus validate collection
         $validate = $this->nucleus->validate;
-        // Populate the isotope validation results
-        $this->validate = $validate->validate($this, $this->value);
-        // Return for chaining
-        return $this;
+        // Return the result of the validation
+        return $validate->validate($this, $this->value);
     }
 
 }

@@ -45,6 +45,10 @@ class Nucleus {
         $this->format = new FormatCollection([]);
     }
 
+    public function getMachine() {
+        return $this->machine;
+    }
+
     public function label(string $label) {
         // Populate the provided label
         $this->label = $label;

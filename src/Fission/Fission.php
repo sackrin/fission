@@ -7,7 +7,7 @@ use Fission\Schema\NucleusCollection;
 use Fission\Schema\Policy\Allow;
 use Fission\Schema\Policy\Deny;
 use Fission\Schema\Sanitize\Sanitize;
-use Fission\Schema\Validate\Validate;
+use Fission\Schema\Validate\GUMPValidate;
 use Fission\Support\Collect;
 
 class Fission {
@@ -24,7 +24,7 @@ class Fission {
             'default' => Sanitize::class
         ],
         'validate' => [
-            'default' => Validate::class
+            'default' => GUMPValidate::class
         ]
     ];
 

@@ -6,7 +6,7 @@ use Fission\Schema\Nucleus;
 use Fission\Schema\Policy\Allow;
 use Fission\Schema\Policy\Deny;
 use Fission\Schema\Sanitize\Sanitize;
-use Fission\Schema\Validate\Validate;
+use Fission\Schema\Validate\GUMPValidate;
 use Fission\Support\Type;
 use PHPUnit\Framework\TestCase;
 
@@ -48,7 +48,7 @@ final class NucleusTest extends TestCase {
         $this->assertObjectHasAttribute( 'validate', $this->nucleus);
 
         $this->nucleus->validate([
-            Validate::against("required|min_len,5")
+            GUMPValidate::against("required|min_len,5")
         ]);
     }
 

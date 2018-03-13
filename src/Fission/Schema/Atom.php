@@ -2,12 +2,12 @@
 
 namespace Fission\Schema;
 
-use Fission\Schema\Policy\Traits\HasRoles;
-use Fission\Schema\Policy\Traits\HasScope;
+use Fission\Schema\Policy\RolesTrait;
+use Fission\Schema\Policy\ScopeTrait;
 
 class Atom {
 
-    use HasRoles, HasScope;
+    use RolesTrait, ScopeTrait;
 
     public $machine;
 

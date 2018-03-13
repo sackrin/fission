@@ -3,13 +3,13 @@
 namespace Fission\Hydrate;
 
 use Fission\Schema\Atom;
-use Fission\Schema\Policy\Traits\HasRoles;
-use Fission\Schema\Policy\Traits\HasScope;
-use Fission\Support\Util\Press;
+use Fission\Schema\Policy\RolesTrait;
+use Fission\Schema\Policy\ScopeTrait;
+use Fission\Support\Press;
 
 class Reactor {
 
-    use HasScope, HasRoles;
+    use ScopeTrait, RolesTrait;
 
     public $atom;
 

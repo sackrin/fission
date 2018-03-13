@@ -8,6 +8,10 @@ use Fission\Support\Collect;
 
 class FormatCollection extends Collect {
 
+    /**
+     * @param Isotope $isotope
+     * @return mixed
+     */
     public function getter(Isotope $isotope) {
         // Retrieve the list of format
         $format = $this->toArray();
@@ -24,6 +28,11 @@ class FormatCollection extends Collect {
         return $value;
     }
 
+    /**
+     * @param Isotope $isotope
+     * @param $value
+     * @return mixed
+     */
     public function setter(Isotope $isotope, $value) {
         // Retrieve the list of format
         $format = $this->toArray();
@@ -31,7 +40,7 @@ class FormatCollection extends Collect {
         if (count($format) == 0) { return $value; }
         // Loop through each of the format
         foreach ($format as $formatter) {
-            // If the formatter class does not have a get method
+            // If the formatter class does not have a set method
             if (!method_exists($formatter, 'set')) { continue; }
             // Pass the value through the formatter method
             $value = $formatter::set($value, $isotope);

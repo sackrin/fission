@@ -5,19 +5,40 @@ namespace Fission\Schema\Validate;
 use Fission\Hydrate\Isotope;
 use GUMP;
 
-class Validate {
+class GUMPValidate extends AbstractValidate {
 
+    /**
+     * @var string
+     */
     public $rules;
 
+    /**
+     * Factory Method
+     * @param $rules
+     * @return static
+     */
     public static function against($rules) {
+        // Return new constructed instance
         return new static($rules);
     }
 
+    /**
+     * Validate constructor.
+     * @param $rules
+     */
     public function __construct($rules) {
+        // Populate provided rules
         $this->rules = $rules;
     }
 
-    public function apply(Isotope $isotope, $value) {
+    /**
+     * Validate Value
+     * @param Isotope $isotope
+     * @param $value
+     * @return array|bool
+     * @throws \Exception
+     */
+    public function validate(Isotope $isotope, $value) {
         // Create a new gump instance
         $gump = new GUMP();
         // Generate a temporary file field name
@@ -37,9 +58,10 @@ class Validate {
                 $list[] =  preg_replace('/ +/', ' ', str_ireplace($tmp, '', $error));
             }
             // Return in an array
-            // We have to do this to let other validators return multiple
+            // We have to do this to let other rules return multiple
             return $list;
         } // Otherwise return true
         else { return true; }
     }
+
 }

@@ -7,6 +7,12 @@ use Fission\Support\Collect;
 
 class PolicyCollection extends Collect {
 
+    /**
+     * @param Isotope $isotope
+     * @param $scope
+     * @param $roles
+     * @return bool
+     */
     public function grant(Isotope $isotope, $scope, $roles) {
         // Retrieve the list of policies
         $policies = $this->toArray();

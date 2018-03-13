@@ -6,6 +6,11 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 class Collect extends ArrayCollection {
 
+    /**
+     * Collect constructor.
+     * @param $elements
+     * @throws \Exception
+     */
     public function __construct($elements) {
         // If a collection was passed, make sure it was the proper collection
         if (is_object($elements)) {
@@ -21,23 +26,31 @@ class Collect extends ArrayCollection {
         parent::__construct($elements);
     }
 
+    /**
+     * Check If Some Are Present
+     * @param $haystack
+     * @return bool
+     * @throws \Exception
+     */
     public function containsSome($haystack) {
         // If the haystack is not a collect then make it one
         // Just helps to keep everything consistent
         if (!$haystack instanceof Collect) {
             // If the haystack was not an array then make one
-            // Arrays and collect instances should be the only things to make it here
+            // Arrays and Collect instances should be the only things to make it here
             $haystack = new Collect((array) $haystack);
         }
         // If the collection has a wildcard
-        if ($this->contains('*')) {
-            // Return found
-            return true;
-        }
+        if ($this->contains('*')) { return true; }
         // Return if some, or all needles were found
         return count(array_diff($this->toArray(), $haystack->toArray())) < count($this->toArray());
     }
 
+    /**
+     * Create New Collect Instance
+     * @param $elements
+     * @return static
+     */
     public function replace($elements) {
         // Retrieve the items to merge or replace
         $elements = $elements instanceof Collect ? $elements->toArray() : (array)$elements;
@@ -45,6 +58,11 @@ class Collect extends ArrayCollection {
         return $this->createFrom($elements);
     }
 
+    /**
+     * Merge New Elements
+     * @param $elements
+     * @return $this
+     */
     public function merge($elements) {
         // Retrieve the items to merge or replace
         $elements = $elements instanceof Collect ? $elements->toArray() : (array)$elements;
@@ -56,4 +74,5 @@ class Collect extends ArrayCollection {
         // Return the collection
         return $this;
     }
+
 }

@@ -3,13 +3,19 @@
 namespace Fission\Schema\Policy;
 
 use Fission\Hydrate\Isotope;
-use Fission\Schema\Policy\Traits\HasRoles;
-use Fission\Schema\Policy\Traits\HasScope;
+use Fission\Schema\Policy\RolesTrait;
+use Fission\Schema\Policy\ScopeTrait;
 
 abstract class Policy {
 
-    use HasRoles, HasScope;
+    use RolesTrait, ScopeTrait;
 
+    /**
+     * Factory Method
+     * @param $roles
+     * @return static
+     * @throws \Exception
+     */
     public static function for($roles) {
         // Create a new policy instance
         $instance = new static();
@@ -19,6 +25,13 @@ abstract class Policy {
         return $instance;
     }
 
+    /**
+     * Grant Check
+     * @param Isotope $isotope
+     * @param $scope
+     * @param $roles
+     * @return mixed
+     */
     public abstract function grant(Isotope $isotope, $scope, $roles);
 
 }

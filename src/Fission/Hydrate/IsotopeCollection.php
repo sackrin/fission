@@ -4,13 +4,13 @@ namespace Fission\Hydrate;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Fission\Schema\NucleusCollection;
-use Fission\Schema\Policy\Traits\HasRoles;
-use Fission\Schema\Policy\Traits\HasScope;
+use Fission\Schema\Policy\RolesTrait;
+use Fission\Schema\Policy\ScopeTrait;
 use Fission\Support\Type;
 
 class IsotopeCollection extends ArrayCollection {
 
-    use HasRoles, HasScope;
+    use RolesTrait, ScopeTrait;
 
     public $reactor;
 
@@ -28,11 +28,15 @@ class IsotopeCollection extends ArrayCollection {
         parent::__construct([]);
     }
 
-    public function spawn($nuclei) {
+    /**
+     * @param NucleusCollection $nuclei
+     * @return mixed
+     */
+    public function spawn(NucleusCollection $nuclei) {
         // Return a newly minted isotope collection instance
         return (new IsotopeCollection($this->reactor, $nuclei))
-            ->scope($this->scope)
-            ->roles($this->roles);
+            ->setScope($this->scope)
+            ->setRoles($this->roles);
     }
 
     public function hydrate($values) {
