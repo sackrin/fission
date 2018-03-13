@@ -180,7 +180,7 @@ class Isotope {
         $sanitize = $this->getNucleus()->getSanitizers();
         // Apply the sanitization to the value and repopulate the value
         // We do this because sanitized values is the ideal state of a value
-        $this->value = $sanitize->sanitize($this, $this->value);
+        $this->value = $sanitize->sanitize($this, $this->getValue());
         // Return for chaining
         return $this;
     }

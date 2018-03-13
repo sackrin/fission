@@ -122,10 +122,10 @@ class Reactor {
         // Override any existing values
         $this->setValues($values instanceof Press ? $values->all() : (array) $values);
         // Build and hydrate the collection of isotopes
-        $isotopes = (new IsotopeCollection($this, $this->atom->nuclei))
-            ->roles($this->roles)
-            ->scope($this->scope)
-            ->hydrate($this->values);
+        $isotopes = (new IsotopeCollection($this, $this->getAtom()->getNuclei()))
+            ->roles($this->getRoles())
+            ->scope($this->getScope())
+            ->hydrate($this->getValues());
         // Initialise with an isotope collection
         $this->setIsotopes($isotopes);
         // Return isotope collection

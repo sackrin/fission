@@ -7,125 +7,234 @@ use Fission\Schema\Atom;
 use Fission\Schema\Nucleus;
 use Fission\Schema\Policy\PolicyCollection;
 use Fission\Schema\Sanitizer\SanitizerCollection;
+use Fission\Schema\Validator\ValidatorCollection;
 use Fission\Support\Collect;
 
 class ArrayImport {
 
+    /**
+     * @var array
+     */
     public $import;
 
+    /**
+     * @var Atom
+     */
     public $atom;
 
+    /**
+     * Factory Method
+     * @param $import
+     * @return mixed
+     * @throws \Exception
+     */
     public static function from($import) {
+        // Return a freshly built atom instance
         return (new static($import))->build();
     }
 
-    public function __construct($import) {
-        $this->import = $import;
+    /**
+     * ArrayImport constructor.
+     * @param array $import
+     */
+    public function __construct(array $import) {
+        // Set import data
+        $this->setImport($import);
     }
 
+    /**
+     * @return array
+     */
+    public function getImport() {
+        // Return stored import data
+        return $this->import;
+    }
+
+    /**
+     * @param array $import
+     * @return ArrayImport
+     */
+    public function setImport(array $import) {
+        // Set import data
+        $this->import = $import;
+        // Return for chaining
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAtom() {
+        // Return stored atom instance
+        return $this->atom;
+    }
+
+    /**
+     * @param mixed $atom
+     * @return ArrayImport
+     */
+    public function setAtom(Atom $atom) {
+        // Set the atom instance
+        $this->atom = $atom;
+        // Return for chaining
+        return $this;
+    }
+
+    /**
+     * Atom Builder
+     * @return Atom
+     * @throws \Exception
+     */
     public function build() {
-
-        $import = $this->import;
-
+        // Retrieve data to import
+        $import = $this->getImport();
+        // If no machine code was present
+        // The Atom instance needs to have a machine code
         if (!isset($import['machine'])) {
+            // Throw a helpful exception
             throw new \Exception('Import Atom needs to define a machine name');
         }
-
+        // Retrieve passed allowed scope and roles
+        $scope = isset($import['scope']) ? (array)$import['scope'] : [];
+        $roles = isset($import['roles']) ? (array)$import['roles'] : [];
+        // Retrieve passed nuclei
+        $nuclei = isset($import['nuclei']) ? $import['nuclei'] : [];
+        // Build a new atom instance with passed roles and scope
         $atom = (new Atom($import['machine']))
-            ->roles(isset($import['roles']) ? $import['roles'] : [] )
-            ->scope(isset($import['scope']) ? $import['scope'] : [] );
-
-        $atom->nuclei($this->walker(isset($import['nuclei']) ? $import['nuclei'] : []));
-
+            ->setRoles($roles)
+            ->setScope($scope)
+            ->nuclei($this->walker($nuclei));
+        // Return the newly built Atom instance
         return $atom;
     }
 
-    public function walker($arr) {
-
-        $collect = Fission::configNuclei([]);
-
-        foreach ($arr as $import) {
-
+    /**
+     * Nucleus Walker
+     * @param $items
+     * @return mixed
+     * @throws \Exception
+     */
+    public function walker($items) {
+        // Retrieve a new nuclei collection instance
+        $nuclei = Fission::configNuclei([]);
+        // Loop through all of the passed items
+        foreach ($items as $import) {
+            // Create a new nucleus instance using the fission config
             $nucleus = Fission::configNucleus($import['machine']);
-
+            // Set the nucleus type
             $nucleus->type($import['type']);
-
-            if (isset($import['label'])) {
-                static::addLabel($nucleus, $import['label']);
-            }
-
-            if (isset($import['policies']) && is_array($import['policies'])) {
-                static::addPolicies($nucleus, $import['policies']);
-            }
-
-            if (isset($import['sanitize']) && is_array($import['sanitize'])) {
-                static::addSanitize($nucleus, $import['sanitize']);
-            }
-
-            if (isset($import['validate']) && is_array($import['validate'])) {
-                static::addValidate($nucleus, $import['validate']);
-            }
-
-            if (isset($import['nuclei']) && is_array($import['nuclei'])) {
-                static::addNuclei($nucleus, $this->walker($import['nuclei']));
-            }
-
-            $collect->add($nucleus);
+            // Inject any passed nucleus data
+            static::addLabel($nucleus, isset($import['label']) ? $import['label'] : null );
+            static::addPolicies($nucleus, isset($import['policies']) ? $import['policies'] : null );
+            static::addSanitizers($nucleus, isset($import['sanitizers']) ? $import['sanitizers'] : null );
+            static::addValidators($nucleus, isset($import['validators']) ? $import['validators'] : null );
+            static::addNuclei($nucleus, isset($import['nuclei']) ? $this->walker($import['nuclei']) : null);
+            // Add the built nucleus instance to the nuclei collection
+            $nuclei->add($nucleus);
         }
-
-        return $collect;
+        // Return the built nuclei
+        return $nuclei;
     }
 
+    /**
+     * Add Nucleus Label
+     * @param Nucleus $nucleus
+     * @param $label
+     */
     public static function addLabel(Nucleus $nucleus, $label) {
+        // If null was passed then return out
+        if ($label === null) { return; }
+        // Add the label value to the nucleus instance
         $nucleus->label($label);
     }
 
+    /**
+     * Add Policies
+     * @param Nucleus $nucleus
+     * @param $items
+     * @throws \Exception
+     */
     public static function addPolicies(Nucleus $nucleus, $items) {
-
-        $policies = new PolicyCollection([]);
-
+        // If null was passed then return out
+        if ($items === null) { return; }
+        // Determine the context of the collection
+        $items = isset($items['items']) ? $items['items'] : $items ;
+        $type = isset($items['type']) ? $items['type'] : 'default' ;
+        // Create a new policy collection
+        $policies = Fission::configPolicies($type, []);
+        // Loop through each of the provided items
         foreach ($items as $item) {
-
-            $policy = Fission::configPolicy($item['type'], $item['for']);
-
-            $policy->scope($item['scope'])->roles($item['for']);
-
+            // Create a new policy instance
+            $policy = Fission::configPolicy($item['type']);
+            // Add scope and roles to policy instance
+            $policy->setScope($item['scope'])->setRoles($item['for']);
+            // Add built policy to policy collection
             $policies->add($policy);
         }
-
+        // Add the policy collection to the nucleus
         $nucleus->policies($policies);
     }
 
-    public static function addSanitize(Nucleus $nucleus, array $items) {
-
-        $sanitizers = new SanitizerCollection([]);
-
+    /**
+     * Add Nucleus Sanitizers
+     * @param Nucleus $nucleus
+     * @param $items
+     * @throws \Exception
+     */
+    public static function addSanitizers(Nucleus $nucleus, $items) {
+        // If null was passed then return out
+        if ($items === null) { return; }
+        // Determine the context of the collection
+        $items = isset($items['items']) ? $items['items'] : $items ;
+        $type = isset($items['type']) ? $items['type'] : 'default' ;
+        // Create a new santizer collection
+        $sanitizers = Fission::configSanitizers($type, []);
+        // Loop through each of the passed sanitizer items
         foreach ($items as $item) {
-
-            $sanitizer = Fission::configSanitize($item['type'], $item['using']);
-
+            // Create a new sanitizer instance
+            $sanitizer = Fission::configSanitizer($item['type'], $item['using']);
+            // Add the sanitizer to the sanitizer collection
             $sanitizers->add($sanitizer);
         }
-
+        // Add the sanitizer collection to the nucleus
         $nucleus->sanitizers($sanitizers);
     }
 
-    public static function addValidate(Nucleus $nucleus, array $items) {
-
-        $validators = new SanitizerCollection([]);
-
+    /**
+     * Add Nucleus Validators
+     * @param Nucleus $nucleus
+     * @param $items
+     * @throws \Exception
+     */
+    public static function addValidators(Nucleus $nucleus, $items) {
+        // If null was passed then return out
+        if ($items === null) { return; }
+        // Determine the context of the collection
+        $items = isset($items['items']) ? $items['items'] : $items ;
+        $type = isset($items['type']) ? $items['type'] : 'default' ;
+        // Create a new sanitizer collection
+        $validators = Fission::configValidators($type, []);
+        // Loop through each of the passed items
         foreach ($items as $item) {
-
-            $validator = Fission::configValidate($item['type'], $item['against']);
-
+            // Create a new validator instance
+            $validator = Fission::configValidator($item['type'], $item['against']);
+            // Add the validator instance to the list of validators
             $validators->add($validator);
         }
-
+        // Add the validator collection to the nucleus instance
         $nucleus->validators($validators);
     }
 
-    public static function addNuclei(Nucleus $nucleus, Collect $nuclei) {
-
+    /**
+     * Add Nucleus Child Nuclei
+     * @param Nucleus $nucleus
+     * @param $nuclei
+     * @throws \Exception
+     */
+    public static function addNuclei(Nucleus $nucleus, $nuclei) {
+        // If null was passed then return out
+        if ($nuclei === null) { return; }
+        // Set the nuclei into the nucleus
         $nucleus->nuclei($nuclei);
     }
 }
