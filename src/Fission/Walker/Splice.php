@@ -97,6 +97,7 @@ class Splice {
      * Walker
      * @param NucleusCollection $nuclei
      * @param string $crumb
+     * @throws \Exception
      */
     public function walker(NucleusCollection $nuclei, string $crumb='') {
         // If the walker is complete then simply return out

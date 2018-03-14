@@ -66,10 +66,10 @@ class Values {
                 // Loop through each of the value groups
                 foreach ($isotope->isotopes as $k => $_isotopes) {
                     // Populate the isotope value into the group
-                    $group[$machine] = $this->walker($_isotopes);
+                    $group[] = $this->walker($_isotopes);
                 }
                 // Push the group into the isotope value array
-                $values[$machine][] = $group;
+                $values[$machine] = $group;
             } // Otherwise directly populate the value
             else { $values[$machine] = $isotope->getValue(); }
         }
