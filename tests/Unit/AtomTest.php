@@ -8,96 +8,47 @@ use PHPUnit\Framework\TestCase;
 
 final class AtomTest extends TestCase {
 
-    public $atom;
+    public $mocked;
 
     public function setUp() {
-        $this->atom = Atom::create('acme');
+        $this->mocked = Atom::create('acme');
     }
 
     public function testCreateInstance() {
 
-        $this->assertObjectHasAttribute( 'machine', $this->atom);
+        $mocked = $this->mocked;
 
-        $this->assertAttributeEquals('acme', 'machine', $this->atom, 'Machine name not properly populated');
+        $this->assertObjectHasAttribute( 'machine', $mocked);
+
+        $this->assertAttributeEquals('acme', 'machine', $mocked, 'Machine name not properly populated');
     }
 
-    public function testAddingRoles() {
+    public function testSettingMachineName() {
 
-        $this->assertTrue(method_exists($this->atom, 'roles'), 'Does not have method roles');
+        $mocked = $this->mocked;
 
-        $this->atom->roles(['guest', 'user']);
+        $this->assertTrue(method_exists($mocked, 'getMachine'), 'Class does not have method getMachine');
 
-        $this->assertContains('guest', $this->atom->roles->toArray(), 'Does not contain an injected role');
-    }
+        $this->assertTrue(method_exists($mocked, 'setMachine'), 'Class does not have method setMachine');
 
-    public function testCheckingSingleRole() {
+        $setter = $mocked->setMachine('tester');
 
-        $this->atom->roles(['guest', 'user']);
+        $this->assertTrue($setter === $mocked, 'Method setMachine not returning instance of self');
 
-        $this->assertTrue($this->atom->inRoles(['guest']), 'No match on a single role it does have');
+        $this->assertAttributeEquals('tester', 'machine', $mocked, 'Machine name not properly populated');
 
-        $this->assertFalse($this->atom->inRoles(['outsider']), 'Match on a single role it does not have');
-    }
+        $getter = $mocked->getMachine();
 
-    public function testCheckingMultipleRole() {
-
-        $this->atom->roles(['guest', 'user']);
-
-        $this->assertTrue($this->atom->inRoles(['guest', 'user']), 'No match on multiple roles it does have');
-
-        $this->assertTrue($this->atom->inRoles(['guest', 'outsider']), 'No match on multiple roles it does have mixed with some it does not');
-
-        $this->assertFalse($this->atom->inRoles(['outsider', 'member']), 'Matching on multiple roles it does not have');
-    }
-
-    public function testCheckingMixedRoles() {
-
-        $this->atom->roles(['guest', 'user']);
-
-        $this->assertTrue($this->atom->inRoles(['guest', 'user', 'else']), 'Class is reporting no match on roles with multiple allowed and disallowed roles');
-    }
-
-    public function testAddingScope() {
-
-        $this->assertTrue(method_exists($this->atom, 'scope'), 'Does not have method scope');
-
-        $this->atom->scope(['r', 'w']);
-
-        $this->assertContains('w', $this->atom->scope->toArray(), 'Does not contain an injected scope');
-    }
-
-    public function testCheckingSingleScope() {
-
-        $this->atom->scope(['r', 'w']);
-
-        $this->assertTrue($this->atom->inScope(['r']), 'No match on a single scope it does have');
-
-        $this->assertFalse($this->atom->inScope(['rw']), 'Match on a single scope it does not have');
-    }
-
-    public function testCheckingMultipleScope() {
-
-        $this->atom->scope(['r', 'w']);
-
-        $this->assertTrue($this->atom->inScope(['r', 'w']), 'No match on multiple scope it does have');
-
-        $this->assertTrue($this->atom->inScope(['r', 'rw']), 'No match on multiple scope it does have mixed with some it does not');
-
-        $this->assertFalse($this->atom->inScope(['rw', 'd']), 'Matching on multiple scope it does not have');
-    }
-
-    public function testCheckingMixedScopes() {
-
-        $this->atom->scope(['r', 'w']);
-
-        $this->assertTrue($this->atom->inScope(['r', 'w', 'rw']), 'Class is reporting no match on scope with multiple allowed and disallowed scope');
+        $this->assertTrue($getter === 'tester', 'Method getMachine not returning correct machine name');
     }
 
     public function testNucleiInjection() {
 
-        $this->assertObjectHasAttribute( 'nuclei', $this->atom);
+        $mocked = $this->mocked;
 
-        $this->atom->nuclei([
+        $this->assertObjectHasAttribute( 'nuclei', $mocked);
+
+        $mocked->nuclei([
             Nucleus::create('first_name'),
             Nucleus::create('last_name')
         ]);
