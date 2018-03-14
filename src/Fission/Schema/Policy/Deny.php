@@ -15,8 +15,8 @@ class Deny extends AbstractPolicy {
      * @throws \Exception
      */
     public function grant(Isotope $isotope, $scope, $roles) {
-        // Always, if this policy is out of scope then grant policy check
-        if (!$this->scope->containsSome($scope)) { return true; }
+        // Always, if this policy is out of scope then fail to grant
+        if (!$this->scope->containsSome($scope)) { return false; }
         // If none of the provided roles were found then grant policy check
         if (!$this->roles->containsSome($roles)) { return true; }
         // Otherwise do not grant the policy check
