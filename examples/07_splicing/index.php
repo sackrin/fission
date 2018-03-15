@@ -1,7 +1,7 @@
 <?php
 
 /**
- * 07. IMPORT ATOM FROM ARRAY
+ * 07. NUCLEUS SPLICING
  */
 
 use Fission\Hydrate\Reactor;
