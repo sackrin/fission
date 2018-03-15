@@ -1,7 +1,7 @@
 <?php
 
 /**
- * SIMPLE FISSION SCHEMA EXAMPLE
+ * 00. SIMPLE FISSION SCHEMA EXAMPLE
  * Create a simple atom schema and hydrate with values to produce a processed array of data
  */
 

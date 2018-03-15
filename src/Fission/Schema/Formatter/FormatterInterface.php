@@ -12,7 +12,7 @@ interface FormatterInterface {
      * @param $value
      * @return mixed
      */
-    public static function get(Isotope $isotope, $value);
+    public function get(Isotope $isotope, $value);
 
     /**
      * Value Setter
@@ -20,6 +20,6 @@ interface FormatterInterface {
      * @param $value
      * @return mixed
      */
-    public static function set(Isotope $isotope, $value);
+    public function set(Isotope $isotope, $value);
 
 }

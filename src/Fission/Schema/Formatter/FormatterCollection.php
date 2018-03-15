@@ -24,7 +24,7 @@ class FormatterCollection extends Collect {
             // If the formatter class does not have a get method
             if (!method_exists($formatter, 'get')) { continue; }
             // Pass the value through the formatter method
-            $value = $formatter::get($isotope, $isotope->value);
+            $value = $formatter->get($isotope, $isotope->value);
         }
         // Return the result
         return $value;
@@ -46,7 +46,7 @@ class FormatterCollection extends Collect {
             // If the formatter class does not have a set method
             if (!method_exists($formatter, 'set')) { continue; }
             // Pass the value through the formatter method
-            $value = $formatter::set($isotope, $value);
+            $value = $formatter->set($isotope, $value);
         }
         // Return the result
         return $value;

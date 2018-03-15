@@ -125,6 +125,7 @@ class ArrayImport {
             $nucleus->type($import['type']);
             // Inject any passed nucleus data
             static::addLabel($nucleus, isset($import['label']) ? $import['label'] : null );
+            static::addFormatters($nucleus, isset($import['formatters']) ? $import['formatters'] : null );
             static::addPolicies($nucleus, isset($import['policies']) ? $import['policies'] : null );
             static::addSanitizers($nucleus, isset($import['sanitizers']) ? $import['sanitizers'] : null );
             static::addValidators($nucleus, isset($import['validators']) ? $import['validators'] : null );
@@ -176,6 +177,31 @@ class ArrayImport {
     }
 
     /**
+     * Add Nucleus Formatters
+     * @param Nucleus $nucleus
+     * @param $items
+     * @throws \Exception
+     */
+    public static function addFormatters(Nucleus $nucleus, $items) {
+        // If null was passed then return out
+        if ($items === null) { return; }
+        // Determine the context of the collection
+        $items = isset($items['items']) ? $items['items'] : $items ;
+        $type = isset($items['type']) ? $items['type'] : 'default' ;
+        // Create a new formatter collection
+        $formatters = Fission::configFormatters($type, []);
+        // Loop through each of the passed items
+        foreach ($items as $item) {
+            // Create a new formatter instance
+            $formatter = Fission::configFormatter($item['type'], isset($item['options']) ? $item['options'] : null);
+            // Add the formatter instance to the list of formatters
+            $formatters->add($formatter);
+        }
+        // Add the formatter collection to the nucleus instance
+        $nucleus->formatters($formatters);
+    }
+
+    /**
      * Add Nucleus Sanitizers
      * @param Nucleus $nucleus
      * @param $items
@@ -192,7 +218,7 @@ class ArrayImport {
         // Loop through each of the passed sanitizer items
         foreach ($items as $item) {
             // Create a new sanitizer instance
-            $sanitizer = Fission::configSanitizer($item['type'], $item['using']);
+            $sanitizer = Fission::configSanitizer($item['type'], isset($item['options']) ? $item['options'] : null);
             // Add the sanitizer to the sanitizer collection
             $sanitizers->add($sanitizer);
         }
@@ -212,12 +238,12 @@ class ArrayImport {
         // Determine the context of the collection
         $items = isset($items['items']) ? $items['items'] : $items ;
         $type = isset($items['type']) ? $items['type'] : 'default' ;
-        // Create a new sanitizer collection
+        // Create a new validator collection
         $validators = Fission::configValidators($type, []);
         // Loop through each of the passed items
         foreach ($items as $item) {
             // Create a new validator instance
-            $validator = Fission::configValidator($item['type'], $item['against']);
+            $validator = Fission::configValidator($item['type'], isset($item['options']) ? $item['options'] : null);
             // Add the validator instance to the list of validators
             $validators->add($validator);
         }

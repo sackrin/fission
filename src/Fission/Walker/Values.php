@@ -2,6 +2,7 @@
 
 namespace Fission\Walker;
 
+use Fission\Hydrate\Isotope;
 use Fission\Hydrate\IsotopeCollection;
 use Fission\Support\Type;
 
@@ -17,6 +18,7 @@ class Values {
      * @return static
      */
     public static function gather(IsotopeCollection $isotopes) {
+        // Return a new instance of the isotope collection
         return (new static($isotopes));
     }
 
@@ -25,6 +27,7 @@ class Values {
      * @param IsotopeCollection $isotopes
      */
     public function __construct(IsotopeCollection $isotopes) {
+        // Store the isotope collection
         $this->isotopes = $isotopes;
     }
 
@@ -34,7 +37,38 @@ class Values {
      */
     public function all() {
         // Build the values using the tree walker
-        return $this->walker($this->isotopes);
+        return static::walker($this->isotopes);
+    }
+
+    /**
+     * Extract Values For Single Isotope
+     * @param Isotope $isotope
+     * @return array|mixed
+     */
+    public static function single(Isotope $isotope) {
+        // Retrieve the isotope nucleus
+        $nucleus = $isotope->getNucleus();
+        // Retrieve the formatted value
+        $value = $isotope->getValue();
+        // If this nuclues is a container
+        if ($nucleus->getType() === Type::container()) {
+            // Directly return the values
+            return static::walker($isotope->getIsotopes());
+        } // If this nucleus is a collection of nuclei
+        // Which means this will have multiple groups of isotopes
+        elseif ($nucleus->getType() === Type::collection() && is_array($value)) {
+            // Create a new simple array
+            // Collections will be multiple groups of values
+            $group = [];
+            // Loop through each of the value groups
+            foreach ($isotope->getIsotopes() as $k => $_isotopes) {
+                // Populate the isotope value into the group
+                $group[] = static::walker($_isotopes);
+            }
+            // Return the group as the isotope value
+            return $group;
+        } // Otherwise directly return the value
+        else { return $isotope->getValue(); }
     }
 
     /**
@@ -42,36 +76,17 @@ class Values {
      * @param IsotopeCollection $isotopes
      * @return array
      */
-    public function walker(IsotopeCollection $isotopes) {
+    public static function walker(IsotopeCollection $isotopes) {
         // Create a simple array
         $values = [];
         // Loop through each of the isotopes
         foreach ($isotopes->toArray() as $isotope) {
             // Retrieve the isotope nucleus
-            $nucleus = $isotope->nucleus;
+            $nucleus = $isotope->getNucleus();
             // Retrieve the nucleus machine code
-            $machine = $nucleus->machine;
+            $machine = $nucleus->getMachine();
             // Retrieve the formatted value
-            $value = $isotope->getValue();
-            // If this nuclues is a container
-            if ($nucleus->type === Type::container()) {
-                // Directly populate the values into this value slot
-                $values[$machine] = $this->walker($isotope->isotopes);
-            } // If this nucleus is a collection of nuclei
-            // Which means this will have multiple groups of isotopes
-            elseif ($nucleus->type === Type::collection() && is_array($value)) {
-                // Create a new simple array
-                // Collections will be multiple groups of values
-                $group = [];
-                // Loop through each of the value groups
-                foreach ($isotope->isotopes as $k => $_isotopes) {
-                    // Populate the isotope value into the group
-                    $group[] = $this->walker($_isotopes);
-                }
-                // Push the group into the isotope value array
-                $values[$machine] = $group;
-            } // Otherwise directly populate the value
-            else { $values[$machine] = $isotope->getValue(); }
+            $values[$machine] = static::single($isotope);
         }
         // Return the built values
         return $values;

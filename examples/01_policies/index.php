@@ -1,7 +1,7 @@
 <?php
 
 /**
- * 2. POLICIES FOR PROPERTY ACCESS CONTROL
+ * 01. POLICIES FOR PROPERTY ACCESS CONTROL
  * This example extends off of previous examples
  * Create a policy driven schema to restrict actions based on roles and scope
  */

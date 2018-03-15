@@ -2,6 +2,8 @@
 
 namespace Fission;
 
+use Fission\Schema\Formatter\FormatterCollection;
+use Fission\Schema\Formatter\FormatTo;
 use Fission\Schema\Nucleus;
 use Fission\Schema\NucleusCollection;
 use Fission\Schema\Policy\Allow;
@@ -25,6 +27,12 @@ class Fission {
         'policy' => [
             'deny' => Deny::class,
             'allow' => Allow::class
+        ],
+        'formatters' => [
+            'default' => FormatterCollection::class
+        ],
+        'formatter' => [
+            'default' => FormatTo::class
         ],
         'sanitizers' => [
             'default' => SanitizerCollection::class
@@ -63,6 +71,16 @@ class Fission {
     public static function configPolicy($type) {
         $class = static::$config['policy'][$type];
         return new $class();
+    }
+
+    public static function configFormatters($type='default', $elements = []) {
+        $class = static::$config['formatters'][$type];
+        return new $class($elements);
+    }
+
+    public static function configFormatter($type, $using) {
+        $class = static::$config['formatter'][$type];
+        return new $class($using);
     }
 
     public static function configSanitizers($type='default', $elements = []) {

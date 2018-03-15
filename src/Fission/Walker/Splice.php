@@ -74,6 +74,19 @@ class Splice {
     }
 
     /**
+     * And (friendly alias of merge)
+     * @param string $property
+     * @param mixed $value
+     * @param bool $replace
+     * @param string $type
+     * @return $this
+     */
+    public function and(string $property, $value, bool $replace=false, string $type='auto') {
+        // Call and return merge
+        return $this->merge($property, $value, $replace, $type);
+    }
+
+    /**
      * At (Path)
      * @param string $path
      * @return Atom
