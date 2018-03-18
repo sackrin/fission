@@ -319,8 +319,18 @@ class Nucleus {
      * @throws \Exception
      */
     public function nuclei($nuclei) {
-        // Populate and return for chaining
-        return $this->setNuclei(new NucleusCollection($nuclei));
+        // If a potential classname has been passed
+        if (is_string($nuclei) && class_exists($nuclei)) {
+            // Populate the nuclei with the result of the get nuclei method
+            $this->nuclei = new NucleusCollection((new $nuclei())->getNuclei());
+        } // Otherwise if an object was passed
+        elseif (is_object($nuclei) && method_exists($nuclei, 'getNuclei')) {
+            // Populate the nuclei with the result of the get nuclei method
+            $this->nuclei = new NucleusCollection($nuclei()->getNuclei());
+        } // Otherwise pass through to the nucleus collection
+        else { $this->nuclei = new NucleusCollection($nuclei); }
+        // Return for chaining
+        return $this;
     }
 
 }
