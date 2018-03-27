@@ -6,7 +6,7 @@
 
 use Fission\Hydrate\Reactor;
 use Fission\Import\ArrayImport;
-use Fission\Schema\Sanitizer\GUMPSanitizer;
+use Fission\Sanitizer\GUMPSanitizer;
 use Fission\Schema\Validator\GUMPValidator;
 use Fission\Support\Press;
 use Fission\Walker\Splice;

@@ -13,7 +13,7 @@ use Fission\Schema\Formatter\FormatTo;
 use Fission\Schema\Nucleus;
 use Fission\Schema\Policy\Allow;
 use Fission\Schema\Policy\Deny;
-use Fission\Schema\Sanitizer\GUMPSanitizer;
+use Fission\Sanitizer\GUMPSanitizer;
 use Fission\Schema\Validator\GUMPValidator;
 use Fission\Support\Press;
 use Fission\Support\Type;

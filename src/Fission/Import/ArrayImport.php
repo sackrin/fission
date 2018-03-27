@@ -6,7 +6,7 @@ use Fission\Fission;
 use Fission\Schema\Atom;
 use Fission\Schema\Nucleus;
 use Fission\Schema\Policy\PolicyCollection;
-use Fission\Schema\Sanitizer\SanitizerCollection;
+use Fission\Sanitizer\SanitizerCollection;
 use Fission\Schema\Validator\ValidatorCollection;
 use Fission\Support\Collect;
 

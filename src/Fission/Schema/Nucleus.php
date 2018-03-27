@@ -4,7 +4,7 @@ namespace Fission\Schema;
 
 use Fission\Schema\Formatter\FormatterCollection;
 use Fission\Schema\Policy\PolicyCollection;
-use Fission\Schema\Sanitizer\SanitizerCollection;
+use Fission\Sanitizer\SanitizerCollection;
 use Fission\Schema\Validator\ValidatorCollection;
 use Fission\Support\Type;
 
@@ -29,11 +29,6 @@ class Nucleus {
      * @var PolicyCollection
      */
     public $policies;
-
-    /**
-     * @var SanitizerCollection
-     */
-    public $sanitizers;
 
     /**
      * @var FormatterCollection
@@ -79,7 +74,6 @@ class Nucleus {
         // Initialise the various collections
         $this->setNuclei(new NucleusCollection([]));
         $this->setPolicies(new PolicyCollection([]));
-        $this->setSanitizers(new SanitizerCollection([]));
         $this->setValidators(new ValidatorCollection([]));
         $this->setFormatters(new FormatterCollection([]));
     }
@@ -156,25 +150,6 @@ class Nucleus {
     public function setPolicies(PolicyCollection $policies) {
         // Set the policies collection
         $this->policies = $policies;
-        // Return for chaining
-        return $this;
-    }
-
-    /**
-     * @return SanitizerCollection
-     */
-    public function getSanitizers() {
-        // Return the sanitizersr collection
-        return $this->sanitizers;
-    }
-
-    /**
-     * @param SanitizerCollection $sanitizers
-     * @return Nucleus
-     */
-    public function setSanitizers(SanitizerCollection $sanitizers) {
-        // Set the santizer collection
-        $this->sanitizers = $sanitizers;
         // Return for chaining
         return $this;
     }
@@ -291,16 +266,6 @@ class Nucleus {
     public function formatters($formatters) {
         // Populate and return for chaining
         return $this->setFormatters(new FormatterCollection($formatters));
-    }
-
-    /**
-     * @param $sanitizers
-     * @return Nucleus
-     * @throws \Exception
-     */
-    public function sanitizers($sanitizers) {
-        // Populate and return for chaining
-        return $this->setSanitizers(new SanitizerCollection($sanitizers));
     }
 
     /**
