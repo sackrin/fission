@@ -2,9 +2,9 @@
 
 namespace Fission\Walker;
 
-use Fission\Schema\Atom;
-use Fission\Schema\Nucleus;
-use Fission\Schema\NucleusCollection;
+use Fission\Atom;
+use Fission\Nucleus\Nucleus;
+use Fission\Nucleus\NucleiCollection;
 use Fission\Support\Collect;
 use Fission\Support\Type;
 
@@ -108,11 +108,11 @@ class Splice {
 
     /**
      * Walker
-     * @param NucleusCollection $nuclei
+     * @param NucleiCollection $nuclei
      * @param string $crumb
      * @throws \Exception
      */
-    public function walker(NucleusCollection $nuclei, string $crumb='') {
+    public function walker(NucleiCollection $nuclei, string $crumb='') {
         // If the walker is complete then simply return out
         // This isn't 100% required but saves some compute cycles
         if ($this->isComplete === true) { return; }

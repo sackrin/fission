@@ -2,7 +2,7 @@
 
 namespace Tests\Unit\Schema\Policy;
 
-use Fission\Schema\Policy\RolesTrait;
+use Fission\Policy\HasRolesTrait;
 use PHPUnit\Framework\TestCase;
 
 class RolesTraitTest extends TestCase {
@@ -11,7 +11,7 @@ class RolesTraitTest extends TestCase {
 
     public function setUp() {
 
-        $this->mocked = $this->getMockForTrait(RolesTrait::class);
+        $this->mocked = $this->getMockForTrait(HasRolesTrait::class);
     }
 
     public function testAddingRoles() {

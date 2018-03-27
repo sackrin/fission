@@ -5,8 +5,8 @@
  */
 
 use Fission\Example\Mock\MockDB;
-use Fission\Hydrate\Reactor;
-use Fission\Schema\Atom;
+use Fission\Reactor;
+use Fission\Atom;
 use Fission\Support\Press;
 use Fission\Walker\Values;
 

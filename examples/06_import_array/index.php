@@ -4,7 +4,7 @@
  * 06. IMPORT ATOM FROM ARRAY
  */
 
-use Fission\Hydrate\Reactor;
+use Fission\Reactor;
 use Fission\Import\ArrayImport;
 use Fission\Support\Press;
 use Fission\Walker\Validator;

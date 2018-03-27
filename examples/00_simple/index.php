@@ -7,9 +7,9 @@
 
 include('../../vendor/autoload.php');
 
-use Fission\Hydrate\Reactor;
-use Fission\Schema\Atom;
-use Fission\Schema\Nucleus;
+use Fission\Reactor;
+use Fission\Atom;
+use Fission\Nucleus\Nucleus;
 use Fission\Support\Press;
 use Fission\Support\Type;
 use Fission\Walker\Values;

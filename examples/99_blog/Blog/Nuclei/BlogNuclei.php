@@ -2,9 +2,9 @@
 
 namespace Fission\Example\Blog\Nuclei;
 
-use Fission\Schema\Nucleus;
-use Fission\Schema\Policy\Allow;
-use Fission\Schema\Policy\Deny;
+use Fission\Nucleus\Nucleus;
+use Fission\Policy\Allow;
+use Fission\Policy\Deny;
 use Fission\Support\ObjectNuclei;
 use Fission\Support\Type;
 

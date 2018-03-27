@@ -2,8 +2,8 @@
 
 namespace Tests\Unit;
 
-use Fission\Schema\Atom;
-use Fission\Schema\Nucleus;
+use Fission\Atom;
+use Fission\Nucleus\Nucleus;
 use PHPUnit\Framework\TestCase;
 
 final class AtomTest extends TestCase {

@@ -2,7 +2,7 @@
 
 namespace Fission\Support;
 
-use Fission\Schema\NucleusCollection;
+use Fission\Nucleus\NucleiCollection;
 
 class ObjectNuclei {
 
@@ -23,7 +23,7 @@ class ObjectNuclei {
      */
     public function setNuclei($nuclei) {
         // Set the passed nuclei as a nucleus collection
-        $this->nuclei = new NucleusCollection($nuclei);
+        $this->nuclei = new NucleiCollection($nuclei);
         // Return for chaining
         return $this;
     }

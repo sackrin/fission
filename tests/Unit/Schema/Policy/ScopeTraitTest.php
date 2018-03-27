@@ -2,7 +2,7 @@
 
 namespace Tests\Unit\Schema\Policy;
 
-use Fission\Schema\Policy\ScopeTrait;
+use Fission\Policy\HasScopeTrait;
 use PHPUnit\Framework\TestCase;
 
 class ScopeTraitTest extends TestCase {
@@ -11,7 +11,7 @@ class ScopeTraitTest extends TestCase {
 
     public function setUp() {
 
-        $this->mocked = $this->getMockForTrait(ScopeTrait::class);
+        $this->mocked = $this->getMockForTrait(HasScopeTrait::class);
     }
 
     public function testAddingScope() {

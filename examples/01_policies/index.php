@@ -8,11 +8,11 @@
 
 include('../../vendor/autoload.php');
 
-use Fission\Hydrate\Reactor;
-use Fission\Schema\Atom;
-use Fission\Schema\Nucleus;
-use Fission\Schema\Policy\Allow;
-use Fission\Schema\Policy\Deny;
+use Fission\Reactor;
+use Fission\Atom;
+use Fission\Nucleus\Nucleus;
+use Fission\Policy\Allow;
+use Fission\Policy\Deny;
 use Fission\Support\Press;
 use Fission\Support\Type;
 use Fission\Walker\Values;
@@ -83,6 +83,6 @@ var_dump($values);
 
 /**
  * ADDING CUSTOM POLICIES
- * You can add your own custom policy classes. Just be sure to extend the Fission\Schema\Policy\AbstractPolicy abstract class
+ * You can add your own custom policy classes. Just be sure to extend the Fission\Policy\AbstractPolicy abstract class
  * to ensure acceptance by the policy collection classes. Check out the Deny and Allow polices for an example on how policies are created
  */

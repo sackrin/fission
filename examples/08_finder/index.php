@@ -4,7 +4,7 @@
  * 08. ISOTOPE SEARCHING
  */
 
-use Fission\Hydrate\Reactor;
+use Fission\Reactor;
 use Fission\Import\ArrayImport;
 use Fission\Support\Press;
 use Fission\Walker\Finder;

@@ -4,10 +4,10 @@
  * 07. NUCLEUS SPLICING
  */
 
-use Fission\Hydrate\Reactor;
+use Fission\Reactor;
 use Fission\Import\ArrayImport;
-use Fission\Sanitizer\GUMPSanitizer;
-use Fission\Schema\Validator\GUMPValidator;
+use Fission\Sanitize\GUMPSanitizer;
+use Fission\Validate\GUMPValidator;
 use Fission\Support\Press;
 use Fission\Walker\Splice;
 use Fission\Walker\Validator;

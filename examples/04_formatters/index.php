@@ -7,14 +7,14 @@
 
 include('../../vendor/autoload.php');
 
-use Fission\Hydrate\Reactor;
-use Fission\Schema\Atom;
-use Fission\Schema\Formatter\FormatTo;
-use Fission\Schema\Nucleus;
-use Fission\Schema\Policy\Allow;
-use Fission\Schema\Policy\Deny;
-use Fission\Sanitizer\GUMPSanitizer;
-use Fission\Schema\Validator\GUMPValidator;
+use Fission\Reactor;
+use Fission\Atom;
+use Fission\Format\FormatTo;
+use Fission\Nucleus\Nucleus;
+use Fission\Policy\Allow;
+use Fission\Policy\Deny;
+use Fission\Sanitize\GUMPSanitizer;
+use Fission\Validate\GUMPValidator;
 use Fission\Support\Press;
 use Fission\Support\Type;
 use Fission\Walker\Validator;

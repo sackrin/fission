@@ -2,24 +2,24 @@
 
 namespace Fission;
 
-use Fission\Schema\Formatter\FormatterCollection;
-use Fission\Schema\Formatter\FormatTo;
-use Fission\Schema\Nucleus;
-use Fission\Schema\NucleusCollection;
-use Fission\Schema\Policy\Allow;
-use Fission\Schema\Policy\Deny;
-use Fission\Schema\Policy\PolicyCollection;
-use Fission\Sanitizer\GUMPSanitizer;
-use Fission\Sanitizer\SanitizerCollection;
-use Fission\Schema\Validator\GUMPValidator;
-use Fission\Schema\Validator\ValidatorCollection;
+use Fission\Format\FormatterCollection;
+use Fission\Format\FormatTo;
+use Fission\Nucleus\Nucleus;
+use Fission\Nucleus\NucleiCollection;
+use Fission\Policy\Allow;
+use Fission\Policy\Deny;
+use Fission\Policy\PolicyCollection;
+use Fission\Sanitize\GUMPSanitizer;
+use Fission\Sanitize\SanitizerCollection;
+use Fission\Validate\GUMPValidator;
+use Fission\Validate\ValidatorCollection;
 use Fission\Support\Collect;
 
 class Fission {
 
     public static $config = [
         'nucleus' => Nucleus::class,
-        'nuclei' => NucleusCollection::class,
+        'nuclei' => NucleiCollection::class,
         'collect' => Collect::class,
         'policies' => [
             'default' => PolicyCollection::class

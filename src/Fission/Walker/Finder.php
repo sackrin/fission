@@ -2,8 +2,8 @@
 
 namespace Fission\Walker;
 
-use Fission\Hydrate\Isotope;
-use Fission\Hydrate\IsotopeCollection;
+use Fission\Isotope\Isotope;
+use Fission\Isotope\IsotopeCollection;
 use Fission\Support\Collect;
 use Fission\Support\Type;
 

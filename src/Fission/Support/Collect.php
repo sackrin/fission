@@ -23,7 +23,7 @@ class Collect extends ArrayCollection {
             $elements = $elements->toArray();
         }
         // Pass through the collection elements
-        parent::__construct($elements);
+        parent::__construct((array)$elements);
     }
 
     /**

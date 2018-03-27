@@ -2,7 +2,7 @@
 
 namespace Fission\Walker;
 
-use Fission\Hydrate\IsotopeCollection;
+use Fission\Isotope\IsotopeCollection;
 use Fission\Support\Type;
 
 class Validator {
