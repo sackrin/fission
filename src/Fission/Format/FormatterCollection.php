@@ -1,6 +1,6 @@
 <?php
 
-namespace Fission\Formatter;
+namespace Fission\Format;
 
 use Fission\Isotope\Isotope;
 use Fission\Reactor;
