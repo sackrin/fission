@@ -5,7 +5,7 @@
  */
 
 use Fission\Reactor;
-use Fission\Import\ArrayImport;
+use Fission\Support\ArrayImport;
 use Fission\Support\Press;
 use Fission\Walker\Finder;
 use Fission\Walker\Validator;

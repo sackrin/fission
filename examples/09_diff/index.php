@@ -1,12 +1,14 @@
 <?php
 
 /**
- * 06. IMPORT ATOM FROM ARRAY
+ * 08. ISOTOPE SEARCHING
  */
 
+use Fission\Diff\Diff;
 use Fission\Reactor;
 use Fission\Support\ArrayImport;
 use Fission\Support\Press;
+use Fission\Walker\Finder;
 use Fission\Walker\Validator;
 use Fission\Walker\Values;
 
@@ -140,6 +142,27 @@ $isotopes = Reactor::using($atom)
         ]
     ]));
 
+$report = Diff::values([
+    'first_name' => ' Johnny ',
+    'last_name' => 'Smithy',
+    'emails' => [
+        [
+            'label' => 'primary',
+            'address' => 'johnny@example.com'
+        ],
+        [
+            'label' => 'backup',
+            'address' => 'johnny.smithy@example.com'
+        ]
+    ]
+])->and([
+    'first_name' => ' Johnny ',
+    'last_name' => 'Smithy'
+]);
+
+die(print_r($report));
+
+
 $validator = Validator::validate($isotopes);
 
 if ($validator->hasErrors()) {
@@ -148,6 +171,8 @@ if ($validator->hasErrors()) {
     var_dump($errors);
 } else {
     echo "Everything Validated!";
-    $values = Values::gather($isotopes)->all();
-    var_dump($values);
+
+    $isotope = Finder::using($isotopes)->find('emails.0.address')->get()->first();
+
+    echo Values::single($isotope);
 }

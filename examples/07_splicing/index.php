@@ -5,7 +5,7 @@
  */
 
 use Fission\Reactor;
-use Fission\Import\ArrayImport;
+use Fission\Support\ArrayImport;
 use Fission\Sanitize\GUMPSanitizer;
 use Fission\Validate\GUMPValidator;
 use Fission\Support\Press;
